@@ -38,5 +38,73 @@ class Solution {
     }
 }
 算法思想：快慢指针，两个指针，遍历数组，当等于篮子的其中一个的时候，将快指针的下标更新到数组遍历到的地方，快指针减去慢指针+1,比较看是否更新，否则，快篮子找到了不同篮子的下标，慢指针只能从快指针后面一个，向后遍历，找到重复数字的最后一个，然后进行比较是否更新max。注意一点，快慢指针的数是不断跟新的，所以存在快慢指针相等的时候，单纯使用指针是会出问题的，比如 112211，快慢指针会有相等的时候，第一个if语句会出问题。
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int loop = n / 2;
+        int startx = 0;
+        int starty = 0;
+        int count = 1;
+        int[][] a = new int[n][n];
+        int offset = 1;
+        while (loop-- != 0) {
+            int i = startx;
+            int j = starty;
+            for (; j < startx + n -offset; j++) {
+                a[i][j] = count++;
+            }
+            for (; i < starty + n -offset;i++){
+                a[i][j] = count++;
+            }
+            for (;j > startx ; j--) {
+                a[i][j] = count++;
+            }
+            for (; i > starty; i--) {
+                a[i][j] = count++;
+            }
+            startx++;
+            starty++;
+            offset += 2;
+        }
+        if(n % 2 != 0){
+            a[n/2] [n/2] = n*n;
+        }
+        return a;
+    }
+}
+
+螺旋数组
+
+给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int loop = n / 2;//遍历几圈
+        int startx = 0;//起始位置
+        int count = 1;//放的数字
+        int[][] a = new int[n][n];
+        int offset = 1;//边界
+        while (loop-- != 0) {
+            int i = startx;
+            int j = startx;
+            for (; j < startx + n -offset; j++) {//第一维不变，第二维从起始位置开始到边界-1，第二轮数字少二，但是需要加上起始位置
+                a[i][j] = count++;
+            }
+            for (; i < startx + n -offset;i++){
+                a[i][j] = count++;
+            }
+            for (;j > startx ; j--) {//回到起始位置
+                a[i][j] = count++;
+            }
+            for (; i > startx; i--) {//回到起始位置
+                a[i][j] = count++;
+            }
+            startx++;
+            offset += 2;
+        }
+        if(n % 2 != 0){
+            a[n/2] [n/2] = n*n;
+        }
+        return a;
+    }
+}
 ```
 
