@@ -22,7 +22,7 @@ class Solution {
                 cur = cur.next;
             }
         }
-        head = dummp.next;
+        head = dummp.next;//防止是删除首元素，不能直接返回head；
         return head;
     }
 }
